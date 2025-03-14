@@ -3,16 +3,14 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import db from "./utils/db.js";
-
-// import all routes
-
 import userRoutes from "./routes/user.routes.js";
 
 dotenv.config();
 
 const app = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(
   cors({
     origin: process.env.BASE_URL,
@@ -21,25 +19,20 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-app.use(express.json()); // hamne ishe bola ki json accept krlo
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// Test Routes
+app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/hitesh/ai", (req, res) => res.send("Running Hitesh.ai"));
+app.get("/cohort", (req, res) => res.send("Running Ankit.ai !"));
 
-app.get("/hitesh/ai", (req, res) => {
-  res.send("Running Hitesh.ai");
-});
-
-app.get("/cohort", (req, res) => {
-  res.send("Running Ankit.ai !");
-});
-
-// Connect to db
+// Connect to DB
 db();
 
+// API Routes
+app.use("/user", userRoutes);
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });

@@ -1,10 +1,12 @@
+// controllers/user.controller.js
+import User from "../models/User.model.js";
+
 const registerUser = async (req, res) => {
-  res.send("registerd");
+  res.send("User registered successfully");
 };
 
-const login = async (req, res) => {
-  res.send("logged in");
-  // ishke andar bussiness logic likhte hai haam
+const loginUser = async (req, res) => {
+  res.send("User logged in successfully");
 };
 
-export {registerUser}
+export { registerUser, loginUser };
